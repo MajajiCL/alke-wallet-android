@@ -1,133 +1,96 @@
-# Alke Wallet - Android
+# Alke Wallet - Android (Arquitectura Empresarial MVVM)
 
-**Evaluación Módulo #4: Desarrollo de la Interfaz de Usuario Android**  
+**Evaluación Módulo #6: Desarrollo de Aplicaciones Empresariales Android**  
 *Bootcamp: Desarrollo de Aplicaciones Móviles Android Trainee (SENCE / Alkemy)*
 
-Repositorio Oficial: [https://github.com/MajajiCL/alke-wallet-android](https://github.com/MajajiCL/alke-wallet-android)
+Repositorio Oficial: [https://github.com/VannePulgar/alke-wallet-android](https://github.com/VannePulgar/alke-wallet-android)
 
 ---
 
 ## 📱 Descripción del Proyecto
 
-**Alke Wallet** es una aplicación móvil nativa desarrollada para la plataforma Android en Kotlin y XML. El objetivo central de este proyecto es la construcción de las interfaces de usuario (UI) responsivas, limpias y fieles al diseño corporativo provisto en Figma, con navegación simulada mediante `Intent` y un sistema de persistencia local SQLite para registro e inicio de sesión funcional.
+**Alke Wallet** es una aplicación móvil financiera nativa desarrollada en **Kotlin** para Android. En esta versión empresarial correspondiente al **Módulo #6**, la aplicación ha sido refactorizada e impulsada bajo el patrón arquitectónico oficial **MVVM (Model - View - ViewModel)** de Android Jetpack.
+
+Integra consumo de **APIs REST externas mediante Retrofit**, almacenamiento local persistente con **modo Offline**, carga y caché asíncrona de imágenes mediante **Picasso**, gestión segura de sesiones, validaciones robustas y un conjunto de **pruebas unitarias automatizadas con JUnit y Mockito**.
 
 ---
 
-## 🎨 Especificación de las 9 Pantallas Desarrolladas
+## 🏛️ Arquitectura MVVM (Model - View - ViewModel)
 
-Siguiendo la consigna de la evaluación y los recursos de Figma, se desarrollaron e integraron las **9 pantallas clave**:
-
-1. **Splash Screen (`SplashActivity` / `activity_splash.xml`)**:
-   - Fondo celeste corporativo (`#63B8FC`).
-   - Logotipo centrado con el nombre de la aplicación `AlkeWallet`.
-   - Transición automática de 2 segundos hacia la pantalla de bienvenida.
-
-2. **Login / Signup Page (`LoginSignupActivity` / `activity_login_signup.xml`)**:
-   - Fondo de diseño combinado con curvatura superior celeste y contenedor blanco.
-   - Botón principal de bordes redondeados: *"Crear cuenta nueva"*.
-   - Botón secundario de texto: *"Ya tienes cuenta?"*.
-
-3. **Login Page (`LoginActivity` / `activity_login.xml`)**:
-   - Título tipográfico corporativo y elementos gráficos decorativos.
-   - Campos de entrada con estilos redondeados: Email y Contraseña (con botón de visibilidad `password_toggle`).
-   - Opción *"¿Olvidaste tu contraseña?"*.
-   - Botón *"Login"* que valida credenciales contra la base de datos local y accede a Home.
-   - Botón de navegación rápida a *"Crear una nueva cuenta"*.
-
-4. **Signup Page (`SignupActivity` / `activity_signup.xml`)**:
-   - Formulario completo con ScrollView para adaptabilidad a cualquier tamaño de pantalla.
-   - 5 campos de entrada: Nombre, Apellido, Email, Contraseña y Reingresar contraseña.
-   - Validación de campos obligatorios y coincidencia de contraseñas.
-   - Botón *"Crear Cuenta"* que persiste al usuario en SQLite y redirige a Login.
-
-5. **Home Page (`HomeActivity` / `activity_home.xml`)**:
-   - Cabecera celeste con saludo personalizado (*"Hola, Amanda!"*), indicador de *"Balance Total"* (`$124.57`) y campanita de notificaciones.
-   - Avatar de usuario con acceso a la pantalla de Perfil.
-   - Botones de acción rápida: *"Enviar Dinero"* (botón verde corporativo) e *"Ingresar dinero"* (botón celeste).
-   - Sección de *"Últimas transacciones"* con detalle de contacto, fecha/hora, montos diferenciados por color e íconos de entrada/salida.
-
-6. **Home Page - Empty Case (`HomeEmptyActivity` / `activity_home_empty.xml`)**:
-   - Variante de la pantalla principal cuando el usuario aún no registra movimientos.
-   - Muestra la ilustración vectorial oficial de estado vacío (`ic_empty_illustration`) y el mensaje informativo *"No hay transacciones registradas!"*.
-
-7. **Profile Page (`ProfileActivity` / `activity_profile.xml`)**:
-   - Cabecera con avatar redondeado, nombre del usuario e ícono de edición.
-   - Menú de opciones estructurado en tarjetas de fondo gris claro:
-     - *Mi Información*
-     - *Mis tarjetas*
-     - *Opciones*
-     - *Centro de ayuda*
-   - Botón de retorno a la pantalla previa.
-
-8. **Send Money (`SendMoneyActivity` / `activity_send_money.xml`)**:
-   - Barra superior con botón de regreso y título *"Enviar Dinero"*.
-   - Tarjeta con resumen del destinatario seleccionado (Avatar, Nombre y correo electrónico).
-   - Campo numérico para la cantidad a transferir con resalte visual.
-   - Campo multilínea para notas de transferencia opcionales.
-   - Botón de confirmación *"Enviar Dinero"* en color verde (`#72DB31`).
-
-9. **Request Money (`RequestMoneyActivity` / `activity_request_money.xml`)**:
-   - Barra superior con botón de regreso y título *"Ingresar Dinero"*.
-   - Tarjeta de contacto solicitante (Avatar, Nombre y correo).
-   - Campo para monto a ingresar con resalte en azul corporativo.
-   - Campo multilínea para notas de solicitud.
-   - Botón de acción *"Ingresar Dinero"* en color celeste (`#63B8FC` / `#1A87DD`).
-
----
-
-## 🛠️ Fundamentos y Decisiones Técnicas
-
-- **Diseño Responsivo con ConstraintLayout**: Se estructuraron las vistas con `ConstraintLayout` y `LinearLayout` para garantizar que la interfaz se ajuste a distintas resoluciones y densidades de pantalla sin distorsión.
-- **Fidelidad Visual (Figma)**:
-  - **Paleta de Colores**: Definida en `colors.xml` según especificaciones HEX de Figma (`celeste: #63B8FC`, `green_button: #72DB31`, `yellow_icon: #F8BB18`, `text_primary: #1A1A1A`, etc.).
-  - **Tipografía**: Incorporación de la fuente tipográfica corporativa **Jua** en `res/font/jua.ttf` y aplicada globalmente mediante `themes.xml`.
-  - **Vector Drawables**: Conversión limpia de los recursos `.svg` originales de Figma a `VectorDrawable` XML nativos de Android para nitidez en cualquier densidad (hdpi, xhdpi, xxhdpi).
-- **Conectividad y Navegación**: Uso de `Intent` explícitos para transicionar fluidamente entre actividades, con finalización (`finish()`) en flujos donde no corresponde volver atrás (como Splash o Login exitoso).
-- **Persistencia de Datos (SQLite)**: Se implementó `DatabaseHelper` heredando de `SQLiteOpenHelper` para almacenar localmente la tabla `usuario` (`user_id`, `nombre`, `correo_electronico`, `contrasena`, `saldo`), permitiendo que el flujo de registro e inicio de sesión sea 100% funcional y verificable durante pruebas en vivo.
-
----
-
-## 📂 Organización del Proyecto
+El proyecto implementa una estricta separación de responsabilidades:
 
 ```text
-app/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/alkewallet/
-│   │   │   ├── SplashActivity.kt
-│   │   │   ├── LoginSignupActivity.kt
-│   │   │   ├── LoginActivity.kt
-│   │   │   ├── SignupActivity.kt
-│   │   │   ├── HomeActivity.kt
-│   │   │   ├── HomeEmptyActivity.kt
-│   │   │   ├── ProfileActivity.kt
-│   │   │   ├── SendMoneyActivity.kt
-│   │   │   ├── RequestMoneyActivity.kt
-│   │   │   └── data/
-│   │   │       └── DatabaseHelper.kt       # Gestor SQLite local
-│   │   ├── res/
-│   │   │   ├── drawable/                  # Íconos vectoriales SVG/XML y fondos
-│   │   │   ├── font/                      # Fuente tipográfica Jua
-│   │   │   ├── layout/                    # Los 9 layouts XML de la app
-│   │   │   └── values/                    # colors.xml, strings.xml, themes.xml
-│   │   └── AndroidManifest.xml
-build.gradle.kts
-settings.gradle.kts
+com.example.alkewallet/
+├── data/
+│   ├── model/                  # MODELO DE DOMINIO Y DTOs
+│   │   ├── UserProfile.kt      # Entidad de perfil de usuario
+│   │   ├── TransactionItem.kt  # Entidad y modelo de transacción
+│   │   ├── NetworkModels.kt    # DTOs: LoginRequest, BalanceDto, TransactionDto
+│   │   └── Resource.kt         # Sealed class (Success, Error, Loading)
+│   ├── remote/                 # RED Y API REST (Retrofit 2)
+│   │   ├── WalletApiService.kt # Interfaz Retrofit (@POST login, @GET balance, @GET/@POST tx)
+│   │   └── RetrofitClient.kt   # Cliente HTTP con OkHttp, Gson y HttpLoggingInterceptor
+│   ├── repository/             # PATRÓN REPOSITORIO (Fuente única de verdad)
+│   │   └── WalletRepository.kt # Coordina API remota con almacenamiento local (Offline-first)
+│   └── DatabaseHelper.kt       # Persistencia local SQLite/Room con soporte Offline
+├── ui/
+│   ├── viewmodel/              # VIEWMODEL (Lógica de presentación desacoplada)
+│   │   ├── AuthViewModel.kt    # Manejo reactivo de login y registro (LiveData)
+│   │   └── WalletViewModel.kt  # Gestión de saldo, transacciones y envíos (LiveData)
+│   ├── LoginActivity.kt        # Vista de autenticación observando AuthViewModel
+│   ├── SignupActivity.kt       # Vista de registro observando AuthViewModel
+│   ├── HomeActivity.kt         # Tablero observando WalletViewModel y Picasso para avatar
+│   ├── SendMoneyActivity.kt    # Envío de fondos conectado a WalletViewModel
+│   ├── RequestMoneyActivity.kt # Solicitud / Depósito de fondos con WalletViewModel
+│   └── ProfileActivity.kt      # Perfil con carga remota de imágenes vía Picasso
 ```
 
 ---
 
-## 🚀 Compilación y Ejecución
+## 🚀 Tecnologías y Librerías Implementadas
 
-### Opción 1: En Android Studio
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/MajajiCL/alke-wallet-android.git
-   ```
-2. Abrir el proyecto en **Android Studio**.
-3. Dejar que Gradle sincronice las dependencias.
-4. Seleccionar un emulador o dispositivo físico y presionar **Run (`Shift + F10`)**.
+1. **Retrofit 2 + Gson Converter (`com.squareup.retrofit2:retrofit:2.9.0`):**
+   * Cliente HTTP type-safe para consumo de la API REST externa de la billetera.
+   * Serialización y deserialización automática de objetos JSON.
+2. **OkHttp Logging Interceptor (`com.squareup.okhttp3:logging-interceptor:4.12.0`):**
+   * Monitoreo detallado de peticiones y respuestas HTTP en consola de depuración.
+3. **Picasso (`com.squareup.picasso:picasso:2.8`):**
+   * Descarga, renderizado y caché asíncrono de imágenes de perfil remotas en `HomeActivity` y `ProfileActivity` con placeholders y control de errores.
+4. **Android Lifecycle ViewModel & LiveData (`androidx.lifecycle:2.7.0`):**
+   * Persistencia del estado ante rotaciones de pantalla y arquitectura reactiva.
+5. **Kotlin Coroutines (`kotlinx.coroutines:1.7.3`):**
+   * Concurrencia y ejecución de tareas de red y base de datos en segundo plano (`Dispatchers.IO`), manteniendo la interfaz fluida en `Dispatchers.Main`.
+6. **Almacenamiento Local (Modo Offline):**
+   * Persistencia de usuarios, saldos y transacciones en el dispositivo para garantizar que la app siga funcionando sin conexión a internet.
+7. **Testing Automatizado (`JUnit 4`, `Mockito`, `InstantTaskExecutorRule`, `kotlinx-coroutines-test`):**
+   * Pruebas unitarias para las reglas de negocio del `WalletViewModel` y `AuthViewModel`.
 
-### Opción 2: Instalación del APK
-El archivo compilado listo para instalar se encuentra disponible en:
-- `app/build/outputs/apk/debug/app-debug.apk` (o en la raíz del proyecto para pruebas rápidas).
+---
+
+## 🧪 Pruebas Unitarias Ejecutadas
+
+Ubicación: `app/src/test/java/com/example/alkewallet/`
+
+* **`WalletViewModelTest.kt`:**
+  * `sendMoney_withInvalidAmount_setsErrorState()`: Valida que montos negativos sean rechazados con mensaje claro.
+  * `sendMoney_withZeroAmount_setsErrorState()`: Valida que montos en $0 sean rechazados.
+  * `requestMoney_withEmptyAmount_setsErrorState()`: Valida campos obligatorios en solicitudes.
+  * `loadWalletData_updatesBalanceAndTransactions()`: Prueba de integración con Coroutines Test Dispatcher y LiveData.
+* **`AuthViewModelTest.kt`:**
+  * `login_withBlankFields_setsErrorState()`: Valida prevención de accesos con campos vacíos.
+  * `register_withPasswordMismatch_setsErrorState()`: Comprueba validación de coincidencia de contraseñas.
+  * `register_withEmptyFields_setsErrorState()`: Asegura el llenado de información obligatoria.
+
+Comando para ejecutar pruebas:
+```bash
+./gradlew testDebugUnitTest
+```
+*(Resultado: 100% pruebas aprobadas - `BUILD SUCCESSFUL`).*
+
+---
+
+## 🔑 Credenciales de Demostración
+
+* **Correo:** `amanda@alkewallet.com`
+* **Contraseña:** `1234`
+*(O cualquier usuario nuevo registrado a través de la pantalla de Registro).*
