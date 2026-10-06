@@ -13,7 +13,7 @@ class HomeEmptyActivity : AppCompatActivity() {
 
         val btnSendMoney = findViewById<Button>(R.id.btn_send_money)
         val btnRequestMoney = findViewById<Button>(R.id.btn_request_money)
-        val ivProfile = findViewById<ImageView>(R.id.iv_profile)
+        val avatarImage = findViewById<ImageView>(R.id.avatarImage)
 
         btnSendMoney.setOnClickListener {
             startActivity(Intent(this, SendMoneyActivity::class.java))
@@ -23,7 +23,7 @@ class HomeEmptyActivity : AppCompatActivity() {
             startActivity(Intent(this, RequestMoneyActivity::class.java))
         }
 
-        ivProfile.setOnClickListener {
+        avatarImage.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
