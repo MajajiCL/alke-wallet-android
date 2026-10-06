@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AlkeWallet" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/celeste</item>
+        <item name="colorPrimaryVariant">@color/celeste_light</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green_button</item>
+        <item name="colorSecondaryVariant">@color/green_button</item>
+        <item name="colorOnSecondary">@color/white</item>
+        
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/celeste</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Font family (using sans-serif-medium as a fallback for the modern look) -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+</resources>
