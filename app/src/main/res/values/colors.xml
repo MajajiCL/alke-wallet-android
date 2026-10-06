@@ -3,13 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     
-    <!-- Alke Wallet Colors -->
-    <color name="celeste">#5CB8FF</color>
-    <color name="celeste_light">#8ED0FF</color>
-    <color name="green_button">#63C93B</color>
-    <color name="text_primary">#2A3A4D</color>
+    <!-- Alke Wallet Colors from Figma CSS -->
+    <color name="celeste">#63B8FC</color>
+    <color name="celeste_light">#84BFEE</color>
+    <color name="celeste_button">#1A87DD</color>
+    <color name="green_button">#72DB31</color>
+    <color name="yellow_icon">#F8BB18</color>
+    <color name="text_primary">#1A1A1A</color>
     <color name="text_secondary">#8C9FA9</color>
-    <color name="bg_gray">#F2F5F8</color>
+    <color name="bg_gray">#F3F4F5</color>
     <color name="input_bg">#FFFFFF</color>
     <color name="input_border">#DCE4EB</color>
 </resources>

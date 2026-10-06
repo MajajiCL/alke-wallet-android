@@ -11,11 +11,12 @@
         <item name="colorSecondaryVariant">@color/green_button</item>
         <item name="colorOnSecondary">@color/white</item>
         
+        <!-- Apply Font -->
+        <item name="fontFamily">@font/jua_font</item>
+        <item name="android:fontFamily">@font/jua_font</item>
+        
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/celeste</item>
         <item name="android:windowLightStatusBar">false</item>
-        
-        <!-- Font family (using sans-serif-medium as a fallback for the modern look) -->
-        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>

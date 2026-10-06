@@ -52,9 +52,9 @@
         app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@drawable/ic_profile" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile_image" />
 
         <LinearLayout
             android:layout_width="0dp"
